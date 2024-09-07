@@ -6,11 +6,14 @@ const findUserById = async (userId) => {
     return { type: 'NOT_FOUND', message: NOT_FOUND_USER };
 };
 
-// const createNewUser = async (email, password) => {
-//     const newUser = await userModel.insertNewUser(email, password);
-//     const userAdded = awa
-// };
+const createNewUser = async (email, password) => {
+    const newUser = await userModel.insertNewUser(email, password);
+    const userAdded = await userModel.findById(newUser.insertId);
+    if (userAdded) return { type: null, message: userAdded};
+    return { type: 'NOT_FOUND', message: NOT_FOUND_USER };
+};
 
 module.exports = {
     findUserById,
+    createNewUser,
 }
