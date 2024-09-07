@@ -4,9 +4,15 @@ const findById = async (userId) => {
     const [user] = await connection.execute(
         `SELECT * FROM TaskManager.users WHERE id = ${userId}`
     );
-    console.log(user[0].id);
     return (user);
 };
+
+const findByEmail = async (email) => {
+    const [user] = await connection.execute(
+        `SELECT * FROM TaskManager.users WHERE email = ${email}`
+    );
+    return (user);
+}
 
 const insertNewUser = async (email, password) => {
     const [insertUser] = await connection.execute(
@@ -24,4 +30,5 @@ const insertNewUser = async (email, password) => {
 module.exports = {
     insertNewUser,
     findById,
+    findByEmail,
 };

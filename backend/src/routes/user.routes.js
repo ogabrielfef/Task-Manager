@@ -10,7 +10,12 @@ router.get(
 );
 
 router.post(
-    '/',
+    '/login',
+    userControllers.login,
+);
+
+router.post(
+    '/register',
     userControllers.createUser,
 );
 

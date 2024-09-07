@@ -6,4 +6,4 @@ const generateToken = (user) => {
     return jwt.sign({ id: user.id, email: user.email}, secret)
 };
 
-module.export = generateToken;
+module.exports = generateToken;
