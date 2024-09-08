@@ -1,5 +1,6 @@
 const express = require('express');
-const { userRoutes } = require('./routes');
+const { userRoutes, tasksRoutes } = require('./routes');
+const authenticateToken = require('./middleware/authenticateToken');
 
 const app = express();
 
@@ -10,5 +11,7 @@ app.get('/', (_req, res) => {
 });
 
 app.use('/user', userRoutes);
+
+app.use('/tasks',authenticateToken,  tasksRoutes);
 
 module.exports = app;

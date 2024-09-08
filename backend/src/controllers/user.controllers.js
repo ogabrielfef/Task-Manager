@@ -1,6 +1,5 @@
 const { userServices } = require('../services');
 const generateToken = require('../../utils/jwt');
-const bcrypt = require('bcryptjs');
 
 const getUser = async (req, res) => {
     const { id } = req.params;

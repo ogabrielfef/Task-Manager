@@ -8,7 +8,7 @@ const authenticateToken = (req, res, next) => {
 
     if (token == null) return res.status(401).json({ message: 'Token not provided' });
 
-    jwt.verify(token, SECRET_KEY, (err, user) => {
+    jwt.verify(token, secret, (err, user) => {
         if (err) return res.status(403).json({ message: 'Invalid token' });
         
         req.user = user;
