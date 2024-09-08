@@ -1,6 +1,5 @@
 const connection = require('../config/connection');
 
-// findTaskById é usada na função para validar se existe a tarefa antes de prosseguir para o update.
 const findTaskById = async (taskId) => {
     const [task] = await connection.execute(
         `SELECT * FROM TaskManager.users WHERE id = ${taskId}`
@@ -33,9 +32,17 @@ const updateTask = async (id, task) => {
     return (id, task);
 };
 
+const deleteTask = async (id) => {
+    await connection.execute(
+        `DELETE FROM user_tasks WHERE id = ${id}`
+    );
+    return (id);
+};
+
 module.exports = {
     findAllTasksByUserId,
     insertNewTask,
     updateTask,
     findTaskById,
+    deleteTask,
 };
