@@ -14,7 +14,9 @@ CREATE TABLE users (
 CREATE TABLE user_tasks (
     id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
+    title VARCHAR(255) NOT NULL,
     tasks TEXT NOT NULL,
+    completed BOOLEAN DEFAULT FALSE,
     PRIMARY KEY(id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );

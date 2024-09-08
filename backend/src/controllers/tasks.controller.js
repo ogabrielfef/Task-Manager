@@ -1,8 +1,8 @@
 const { tasksServices } = require('../services');
 
 const getTasks = async (req, res) => {
-    const { id } = req.params;
-    const { type, message } = await tasksServices.findUserTasks(id);
+    const { userId } = req.params;
+    const { type, message } = await tasksServices.findUserTasks(parseInt(userId, 10));
 
     if (type) return res.status(message);
 
@@ -10,9 +10,9 @@ const getTasks = async (req, res) => {
 };
 
 const createNewTask = async (req, res) => {
-    const { userId, task } = req.body;
+    const { userId, title, task, completed } = req.body;
 
-    const { type, message } = await tasksServices.addNewTask(userId, task);
+    const { type, message } = await tasksServices.addNewTask(userId, title, task, completed);
 
     if (type) return res.status(message);
 
@@ -20,9 +20,10 @@ const createNewTask = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
-    const { taskId, task } = req.body;
+    const { taskId } = req.params
+    const { title, task, completed } = req.body;
 
-    const { type, message } = await tasksServices.updateTask(taskId, task);
+    const { type, message } = await tasksServices.updateTask(taskId, title, task, completed);
 
     if (type) return res.stauts(message);
 
@@ -30,9 +31,9 @@ const updateTask = async (req, res) => {
 };
 
 const deleteTask = async (req, res) => {
-    const { id } = req.params;
+    const { taskId } = req.params;
 
-    const { type, message } = await tasksServices.deleteTask(id);
+    const { type, message } = await tasksServices.deleteTask(taskId);
 
     if (type) return res.status(message);
 

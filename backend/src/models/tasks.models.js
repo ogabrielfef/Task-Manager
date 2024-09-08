@@ -14,19 +14,19 @@ const findAllTasksByUserId = async (userId) => {
     return (tasks);
 };
 
-const insertNewTask = async (userId, task) => {
+const insertNewTask = async (userId, title, task, completed) => {
     const [insertTask] = await connection.execute(
-        'INSERT INTO TaskManager.user_tasks (user_id, tasks) VALUES (?, ?)',
-        [userId, task]
+        'INSERT INTO TaskManager.user_tasks (user_id, title, tasks, completed) VALUES (?, ?, ?, ?)',
+        [userId, title, task, completed]
     );
 
     return (insertTask);
 };
 
-const updateTask = async (id, task) => {
+const updateTask = async (id, title, task, completed) => {
     await connection.execute(
-        'UPDATE user_tasks SET tasks = ? WHERE id = ?',
-        [task, id]
+        'UPDATE user_tasks SET title = ?, tasks = ?, completed = ? WHERE id = ?',
+        [title, task, completed, id]
     );
 
     return (id, task);

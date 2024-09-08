@@ -12,5 +12,5 @@ INSERT INTO TaskManager.users (email, passwd) VALUES
 
 SET @userId = LAST_INSERT_ID();
 
-INSERT INTO TaskManager.user_tasks (user_id, tasks) VALUES
-    (@userId, "Limpar o quarto");
+INSERT INTO TaskManager.user_tasks (user_id, title, tasks, completed) VALUES
+    (@userId, "Limpeza", "Limpar o quarto", FALSE);

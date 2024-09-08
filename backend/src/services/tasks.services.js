@@ -6,16 +6,16 @@ const findUserTasks = async (userId) => {
     return { type: 'NOT_FOUND', message: NOT_FOUND_TASKS };
 };
 
-const addNewTask = async (userId, task) => {
-    const newTask = await tasksModel.insertNewTask(userId, task);
+const addNewTask = async (userId, title, task, completed) => {
+    const newTask = await tasksModel.insertNewTask(userId, title, task, completed);
     if (newTask) return { type: null, message: newTask }
     return { type: 'NOT_ADDED', message: NOT_ADDED_TASK };
 };
 
-const updateTask = async (id, task) => {
+const updateTask = async (id, title, task, completed) => {
     const taskById = await tasksModel.findTaskById(parseInt(id, 10));
     if (taskById) {
-        const updatedTask = await tasksModel.updateTask(parseInt(id, 10), task);
+        const updatedTask = await tasksModel.updateTask(parseInt(id, 10), title, task, completed);
         return { type: null, message: updatedTask };
     }
     return { type: 'NOT_FOUND', message: TASK_NOT_FOUND };

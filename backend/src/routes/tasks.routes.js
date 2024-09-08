@@ -5,7 +5,7 @@ const { tasksControllers } = require('../controllers');
 const router = express.Router();
 
 router.get(
-    '/:id',
+    '/:userId',
     tasksControllers.getTasks,
 );
 
@@ -15,12 +15,12 @@ router.post(
 );
 
 router.put(
-    '/',
+    '/:taskId',
     tasksControllers.updateTask,
 );
 
 router.delete(
-    '/:id',
+    '/:taskId',
     tasksControllers.deleteTask,
 );
 
