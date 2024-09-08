@@ -12,8 +12,9 @@ CREATE TABLE users (
 );
 
 CREATE TABLE user_tasks (
+    id INT NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
-    tasks JSON NOT NULL,
-    PRIMARY KEY(user_id),
+    tasks TEXT NOT NULL,
+    PRIMARY KEY(id),
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
