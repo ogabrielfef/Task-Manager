@@ -12,7 +12,17 @@ const addNewTask = async (userId, task) => {
     return { type: 'NOT_ADDED', message: NOT_ADDED_TASK };
 };
 
+const updateTask = async (id, task) => {
+    const taskById = await tasksModel.findTaskById(parseInt(id, 10));
+    if (taskById) {
+        const updatedTask = await tasksModel.updateTask(parseInt(id, 10), task);
+        return { type: null, message: updatedTask };
+    }
+    return { type: 'NOT_FOUND', message: TASK_NOT_FOUND };
+};
+
 module.exports = {
     findUserTasks,
     addNewTask,
+    updateTask,
 };

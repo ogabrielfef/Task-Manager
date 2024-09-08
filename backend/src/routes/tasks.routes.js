@@ -14,4 +14,9 @@ router.post(
     tasksControllers.createNewTask,
 );
 
+router.put(
+    '/',
+    tasksControllers.updateTask,
+);
+
 module.exports = router;

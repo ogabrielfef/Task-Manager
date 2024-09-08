@@ -19,7 +19,18 @@ const createNewTask = async (req, res) => {
     return res.status(200).json(message);
 };
 
+const updateTask = async (req, res) => {
+    const { taskId, task } = req.body;
+
+    const { type, message } = await tasksServices.updateTask(taskId, task);
+
+    if (type) return res.stauts(message);
+
+    return res.status(200).json(message);
+};
+
 module.exports = {
     getTasks,
     createNewTask,
+    updateTask,
 };
