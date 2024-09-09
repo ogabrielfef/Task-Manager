@@ -22,3 +22,57 @@ export const fetchTasks = async (userId, token) => {
         throw new Error('Falha ao consultar suas tarefas.')
     }
 };
+
+export const createNewTask = async (userId, title, task, completed, token) => {
+
+    const requestData = {
+        userId,
+        title,
+        task,
+        completed
+    };
+
+    try {
+        const response = await api.post('/', requestData, {
+            headers: {    
+                'Authorization': token,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error('Falha ao tentar criar tarefa.');
+    }
+};
+
+export const updateTask = async (taskId, title, task, completed, token) => {
+    const requestData = {
+        title,
+        task,
+        completed
+    };
+
+    try {
+        const response = await api.put(`/${taskId}`, requestData, {
+            headers: {    
+                'Authorization': token,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error('Falha ao tentar editar tarefa.');
+    }
+
+};
+
+export const deleteTask = async (taskId, token) => {
+    try {
+        const response = await api.delete(`/${taskId}`, {
+            headers: {    
+                'Authorization': token,
+            },
+        });
+        return response.data;
+    } catch (error) {
+        throw new Error('Falha ao tentar excluir tarefa.');
+    }
+};
