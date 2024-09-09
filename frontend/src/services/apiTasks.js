@@ -9,9 +9,14 @@ const api = axios.create({
 });
 
 // Função para buscar as tarefas do usuário logado
-export const fetchTasks = async (userId) => {
+export const fetchTasks = async (userId, token) => {
     try {
-        const response = await api.get(`/${userId}`);
+        const response = await api.get(`/${userId}`, {
+            headers: {    
+                'Authorization': token,
+            },
+        });
+        console.log(response);
         return response.data;
     } catch (error) {
         throw new Error('Falha ao consultar suas tarefas.')
