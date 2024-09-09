@@ -19,7 +19,7 @@ const insertNewUser = async (email, password) => {
         'INSERT INTO TaskManager.users (email, passwd) VALUES (?, ?)', [email, password],
     );
 
-    return (insertUser);
+    return ( insertUser );
 }
 
 module.exports = {
