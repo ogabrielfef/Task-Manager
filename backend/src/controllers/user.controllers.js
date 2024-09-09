@@ -20,13 +20,13 @@ const login = async (req, res) => {
             return res.status(type).json({ message: message }); 
         }
 
-        if (password !== message.passwd) {
+        if (!type && password !== message.passwd) {
             return res.status(403).json({ message: 'Invalid credentials' });
         }
 
         const token = generateToken(message);
-
-        return res.status(200).json({ token });
+        
+        return res.status(200).json({ token, email: message.email, userId: message.id });
     } catch (error) {
         console.error('Error during login:', error);
         return res.status(500).json({ message: 'Internal Server Error' });

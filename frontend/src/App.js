@@ -14,7 +14,7 @@ function App() {
           <Routes>
             <Route exact path="/" element={<Home />}/>
             <Route exact path="/login" element={<Login />}/>
-            <Route path="/tasks" element={<PrivateRoute element={<Tasks />}/>} />
+            <Route path="/tasks" element={<PrivateRoute><Tasks /></PrivateRoute>} />
           </Routes>
       </BrowserRouter>
     </AuthProvider>

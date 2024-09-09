@@ -1,8 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const { userRoutes, tasksRoutes } = require('./routes');
 const authenticateToken = require('./middleware/authenticateToken');
 
 const app = express();
+
+app.use(cors());
 
 app.use(express.json());
 
