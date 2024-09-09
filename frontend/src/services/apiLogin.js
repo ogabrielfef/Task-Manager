@@ -33,4 +33,6 @@ export const UserLogout = () => {
     localStorage.removeItem('authToken');
     localStorage.removeItem('userId');
     localStorage.removeItem('userEmail');
+
+    
 };

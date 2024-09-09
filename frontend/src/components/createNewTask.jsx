@@ -8,7 +8,7 @@ const TaskForm = ({ onAddTask }) => {
 
     const userId = localStorage.getItem('userId');
     const completed = false;
-    const token = localStorage.getItem('authToken')
+    const token = localStorage.getItem('authToken');
 
     const handleAddTask = async () => {
         try {
@@ -25,34 +25,36 @@ const TaskForm = ({ onAddTask }) => {
 
             onAddTask();
         } catch (err) {
-            setError('Falha ao tentar criar tarefa.')
+            setError('Falha ao tentar criar tarefa.');
         }
     };
 
     return (
-        <div>
-            <div>
-                <div>
-                    <input 
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        placeholder="Título da tarefa"
-                    />
-                    <input
-                        type="text"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        placeholder="Descrição da tarefa"
-                    />
-                </div>
-                <div>
-                    <button onClick={handleAddTask}>
-                        Adicionar tarefa
-                    </button>
-                </div>
+        <div className="bg-white rounded-lg shadow-md p-6 mb-8 max-w-4xl mx-auto">
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">Adicionar Nova Tarefa</h2>
+            <div className="space-y-4">
+                <input 
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    placeholder="Título da tarefa"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                />
+                <input
+                    type="text"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    placeholder="Descrição da tarefa"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                />
+                <button
+                    onClick={handleAddTask}
+                    className="w-full py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                >
+                    Adicionar tarefa
+                </button>
             </div>
-            {error && <span>{error}</span>}
+            {error && <div className="text-red-500 mt-4 text-center">{error}</div>}
         </div>
     );
 };

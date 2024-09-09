@@ -14,9 +14,13 @@ const NotFoundPage = () => {
     }, [navigate]);
 
     return (
-        <div>
-            <h1>404 - Página não encontrada</h1>
-            <p>Você será redirecionado para a página inicial em breve...</p>
+        <div className="flex flex-col items-center justify-center h-screen bg-gray-100 p-4">
+            <div className="text-center bg-white rounded-lg shadow-lg p-8 max-w-sm w-full">
+                <h1 className="text-4xl font-extrabold text-gray-800 mb-4">404</h1>
+                <p className="text-lg text-gray-600 mb-4">Página não encontrada</p>
+                <p className="text-md text-gray-500">Você será redirecionado para a página inicial em breve...</p>
+                <p className="text-sm text-gray-400 mt-6">Se você não for redirecionado automaticamente, <a href="/" className="text-blue-500 underline">clique aqui</a>.</p>
+            </div>
         </div>
     );
 };

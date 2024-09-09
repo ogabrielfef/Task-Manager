@@ -4,6 +4,7 @@ import { fetchTasks, updateTask, deleteTask } from "../services/apiTasks";
 import TaskForm from "../components/createNewTask";
 import EditTaskModal from "../components/EditTaskModal";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
+import NavBar from "../components/NavBar";
 
 const TasksPage = () => {
     const { auth } = useAuth();
@@ -99,31 +100,48 @@ const TasksPage = () => {
     };
 
     return (
-        <div>
-            {error && <span>{error}</span>}
-            <TaskForm onAddTask={handleAddTask} />
-            <ul>
-                {tasks.map(task => (
-                    <li key={task.id}>
-                        <div>
-                            <h2>{task.title}</h2>
-                            <p>{task.tasks}</p> 
-                        </div>
-                        <div>
-                            <button onClick={() => openEditModal(task)}>Editar</button>
-                            <button onClick={() => openDeleteModal(task)}>Apagar</button>
-                            <label>
-                                Concluido:
-                                <input 
-                                    type="checkbox"
-                                    checked={task.completed}
-                                    onChange={() => handleCheckBoxChange(task)}
-                                />
-                            </label>
-                        </div>
-                    </li>
-                ))}
-            </ul>
+        <div className="min-h-screen bg-gray-100">
+            <NavBar />
+            {error && <div className="text-red-500 text-center mb-4">{error}</div>}
+            <div className="max-w-4xl mx-auto">
+                <TaskForm onAddTask={handleAddTask} />
+                <div className="mt-8 bg-white rounded-lg shadow-md p-6">
+                    <h1 className="text-2xl font-semibold text-gray-800 mb-4">Tasks</h1>
+                    <ul className="space-y-4">
+                        {tasks.map(task => (
+                            <li key={task.id} className="bg-white rounded-lg shadow-md p-4 flex justify-between items-center border border-solid">
+                                <div className="flex flex-col max-w-70 break-words mr-4">
+                                    <h2 className="text-lg font-semibold text-gray-800">{task.title}</h2>
+                                    <p className="text-gray-600">{task.tasks}</p>
+                                </div>
+                                <div className="flex flex-col items-center gap-2">
+                                    <label className="flex items-center space-x-2">
+                                        <span className="text-gray-700">Concluída:</span>
+                                        <input
+                                            type="checkbox"
+                                            checked={task.completed}
+                                            onChange={() => handleCheckBoxChange(task)}
+                                            className="form-checkbox h-5 w-5 text-blue-500"
+                                        />
+                                    </label>
+                                    <button
+                                        onClick={() => openEditModal(task)}
+                                        className="w-24 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    >
+                                        Editar
+                                    </button>
+                                    <button
+                                        onClick={() => openDeleteModal(task)}
+                                        className="w-24 bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+                                    >
+                                        Apagar
+                                    </button>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
             <EditTaskModal
                 isOpen={isModalOpen}
                 onRequestClose={closeEditModal}
