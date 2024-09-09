@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/authContext";
-import { fetchTasks } from "../services/apiTasks";
-import { deleteTask } from "../services/apiTasks";
+import { fetchTasks, updateTask, deleteTask } from "../services/apiTasks";
 import TaskForm from "../components/createNewTask";
 import EditTaskModal from "../components/EditTaskModal";
 import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
@@ -88,6 +87,17 @@ const TasksPage = () => {
         }
     };
 
+    // marca a tarefa como concluida.
+    const handleCheckBoxChange = async (task) => {
+        try {
+            const newStatus = !task.completed;
+            await updateTask(task.id, task.title, task.tasks, newStatus, token);
+            await loadTasks();
+        } catch (err) {
+            setError('Failed to update task status: ' + err.message);
+        }
+    };
+
     return (
         <div>
             {error && <span>{error}</span>}
@@ -104,7 +114,11 @@ const TasksPage = () => {
                             <button onClick={() => openDeleteModal(task)}>Apagar</button>
                             <label>
                                 Concluido:
-                                <input type="checkbox" checked={task.completed}/>
+                                <input 
+                                    type="checkbox"
+                                    checked={task.completed}
+                                    onChange={() => handleCheckBoxChange(task)}
+                                />
                             </label>
                         </div>
                     </li>
