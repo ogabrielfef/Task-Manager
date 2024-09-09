@@ -18,7 +18,19 @@ export const UserLogin = async (email, password) => {
     }
 };
 
+// Função de registrar usuário.
+export const UserRegister = async (email, password) => {
+    try {
+        const response = await api.post('/register', { email, password });
+        return response.data;
+    } catch (error) {
+        throw new Error('Falha no cadastramento. Verifique suas credenciais.');
+    }
+};
+
 // Função de logout
 export const UserLogout = () => {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('userEmail');
 };
