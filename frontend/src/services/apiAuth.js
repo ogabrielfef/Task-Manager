@@ -11,7 +11,8 @@ const api = axios.create({
 // Função para buscar usuário pelo id
 export const fetchUserById = async (userId) => {
     try {
-        const response = await api.get(`/${userId}`)
+        const response = await api.get(`/${userId}`);
+        return response;
     } catch (error) {
         throw new Error('No momento não foi possível consultar esse usuário.')
     }

@@ -45,19 +45,17 @@ export const createNewTask = async (userId, title, task, completed, token) => {
 };
 
 export const updateTask = async (taskId, title, task, completed, token) => {
-    const requestData = {
-        title,
-        task,
-        completed
-    };
-
     try {
-        const response = await api.put(`/${taskId}`, requestData, {
+        const response = await api.put(`/${taskId}`, {
+            title,
+            task,
+            completed
+        }, {
             headers: {    
                 'Authorization': token,
             },
         });
-        return response.data;
+        return response;
     } catch (error) {
         throw new Error('Falha ao tentar editar tarefa.');
     }

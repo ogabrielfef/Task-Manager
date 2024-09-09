@@ -1,16 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../contexts/authContext";
 import { fetchTasks } from "../services/apiTasks";
+import { deleteTask } from "../services/apiTasks";
 import TaskForm from "../components/createNewTask";
+import EditTaskModal from "../components/EditTaskModal";
+import ConfirmDeleteModal from "../components/ConfirmDeleteModal";
 
 const TasksPage = () => {
     const { auth } = useAuth();
     const [tasks, setTasks] = useState([]);
     const [error, setError] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [editingTask, setEditingTask] = useState(null);
+    const [taskToDelete, setTaskToDelete] = useState(null);
 
     const userId = localStorage.getItem('userId');
     const token = localStorage.getItem('authToken');
 
+    // lista tarefas.
     const loadTasks = async () => {
         if (auth) {
             try {
@@ -28,12 +36,55 @@ const TasksPage = () => {
         loadTasks();
     }, [auth, userId, token]);
 
-    const handleAddTask = async (newTask) => {
+    // atualiza lista após adicionar uma tarefa
+    const handleAddTask = async () => {
         try {
-            // Adiciona a nova tarefa ao estado
             loadTasks();
         } catch (err) {
             setError('Failed to add task: ' + err.message);
+        }
+    };
+
+    // edição de uma tarefa
+    const openEditModal = (task) => {
+        setEditingTask(task);
+        setIsModalOpen(true);
+    };
+
+    const closeEditModal = () => {
+        setIsModalOpen(false);
+        setEditingTask(null);
+    };
+
+    const handleSaveChanges = async (updatedTask) => {
+        try {
+            await loadTasks();  
+            closeEditModal();
+        } catch (err) {
+            setError('Failed to edit task: ' + err.message);
+        }
+    };
+
+    // exclusão de uma tarefa
+    const openDeleteModal = (task) => {
+        setTaskToDelete(task);
+        setIsDeleteModalOpen(true);
+    };
+
+    const closeDeleteModal = () => {
+        setIsDeleteModalOpen(false);
+        setTaskToDelete(null);
+    };
+
+    const handleDeleteTask = async () => {
+        try {
+            if (taskToDelete) {
+                await deleteTask(taskToDelete.id, token);
+                await loadTasks();
+                closeDeleteModal();
+            }
+        } catch (err) {
+            setError('Failed to delete task: ' + err.message);
         }
     };
 
@@ -49,13 +100,27 @@ const TasksPage = () => {
                             <p>{task.tasks}</p> 
                         </div>
                         <div>
-                            <button>Editar</button>
-                            <button>Apagar</button>
-                            <input type="checkbox" checked={task.completed}/>
+                            <button onClick={() => openEditModal(task)}>Editar</button>
+                            <button onClick={() => openDeleteModal(task)}>Apagar</button>
+                            <label>
+                                Concluido:
+                                <input type="checkbox" checked={task.completed}/>
+                            </label>
                         </div>
                     </li>
                 ))}
             </ul>
+            <EditTaskModal
+                isOpen={isModalOpen}
+                onRequestClose={closeEditModal}
+                task={editingTask}
+                onSave={handleSaveChanges}
+            />
+            <ConfirmDeleteModal
+                isOpen={isDeleteModalOpen}
+                onRequestClose={closeDeleteModal}
+                onConfirm={handleDeleteTask}
+            />
         </div>
     );
 };
