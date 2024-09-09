@@ -19,7 +19,7 @@ Você se cadastra utilizando seu próprio email, e terá acesso a um ambiente pa
 Clone o repositório para a sua máquina.
 
 ```bash
-git clone https://github.com/ogabrielfef/Task-Manager
+git clone git@github.com:ogabrielfef/Task-Manager.git
 ```
 
 Crie o Banco de dados conforme o modelo fornecido. 
@@ -86,9 +86,11 @@ Para frontend utilizei react, react-router-dom, useState, context, jasonwebtoken
 
 O projeto foi muito bom para testar as minhas habilidades com as staks, com ter que lidar com as novas versões de algumas ferramentas, o exercício do gerenciamento de tempo, o entendimento das necessidades e "urgências" e a gratificação de poder ver uma aplicação fullstack em funcionamento.
 
-
+##
 Para vocês que estiverem avaliando o projeto e para vocês que estiverem apenas visitando, agradeço pela atenção. 
+
+
 
 Abraços,
 
-<span style="color:blue;">ogabrielfef</span>
+ogabrielfef
